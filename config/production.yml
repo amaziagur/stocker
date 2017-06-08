@@ -1,0 +1,4 @@
+stockApiDomain: query.yahooapis.com
+stockApiPort: 80
+searchStockApiDomain: d.yimg.com
+searchStockApiPort: 80

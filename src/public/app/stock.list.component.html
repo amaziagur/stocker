@@ -1,0 +1,15 @@
+<div class="stockList">
+    <h3>My Stocks</h3>
+    <div *ngFor="let stock of stocks" id="stock-id">
+    <ul class="collection">
+        <li class="collection-item avatar">
+            <img [src]="getImage(stock.name)" alt="" class="circle">
+            <span class="title">Title</span>
+            <p>{{stock.name}} <br>
+                <b>Stock symbol:</b> {{stock.symbol}} <b>Current bid:</b> {{stock.bid}}
+            </p>
+            <a class="secondary-content"><i class="material-icons" (click)="unstock(stock)">unstock</i></a>
+        </li>
+    </ul>
+    </div>
+</div>

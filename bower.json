@@ -1,0 +1,20 @@
+{
+  "name": "ts-node-api",
+  "description": "Example project",
+  "main": "dist/index.js",
+  "authors": [
+    "MaSoft"
+  ],
+  "license": "ISC",
+  "homepage": "https://git.dnsk.io/media-platform/clip-maker-client",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}

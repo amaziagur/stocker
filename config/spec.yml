@@ -1,0 +1,4 @@
+stockApiDomain: localhost
+stockApiPort: 9000
+searchStockApiDomain: localhost
+searchStockApiPort: 8888
