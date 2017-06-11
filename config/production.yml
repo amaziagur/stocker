@@ -2,3 +2,4 @@ stockApiDomain: query.yahooapis.com
 stockApiPort: 80
 searchStockApiDomain: d.yimg.com
 searchStockApiPort: 80
+#// http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=amazon&region=1&lang=en

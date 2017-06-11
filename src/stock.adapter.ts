@@ -7,9 +7,15 @@ export class StockAdapter {
     toStocks() : any {
         console.log("here is data", this.data)
         let stocks : any[] = [];
-        for(var i = 0; i  < this.data.query.count; i++){
-            stocks.push(new Stock(this.data.query.results.quote[i].symbol, +this.data.query.results.quote[i].Bid, this.data.query.results.quote[i].Name));
+
+        if(this.data.query.count <= 1){
+            stocks.push(new Stock(this.data.query.results.quote.symbol, +this.data.query.results.quote.Bid, this.data.query.results.quote.Name));
+        } else {
+            for(var i = 0; i  < this.data.query.count; i++){
+                stocks.push(new Stock(this.data.query.results.quote[i].symbol, +this.data.query.results.quote[i].Bid, this.data.query.results.quote[i].Name));
+            }
         }
+
         return stocks
     }
 

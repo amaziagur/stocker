@@ -9,8 +9,11 @@
     "emitDecoratorMetadata": true,
     "moduleResolution": "node",
     "types": [],
-    "outDir": "tmp"
+    "outDir": "dist"
   },
+  "include": [
+    "src/**/*.ts"
+  ],
   "exclude": [
     "node_modules"
   ]

@@ -5,7 +5,8 @@ import {StockAdapter} from "../stock.adapter";
 
 export class StockRouter {
     router: Router;
-    stocks : string [] = ["AMZN", "GOOGL"];
+    // stocks : string [] = ["AMZN", "GOOGL"];
+    stocks : string [] = [];
     constructor() {
         this.init();
     }
@@ -20,15 +21,16 @@ export class StockRouter {
 
     public get = (req: Request, res: Response, next: NextFunction) => {
         console.log("im in get list", this.stocks);
-        if(this.stocks){
+        if(this.stocks.length > 0){
             new StockFetcherClient().getStock(this.stocks)
                 .then((stock : string) => {
+                    console.log("%%%%%%", stock)
                 res.status(200).type('json').send(new StockAdapter(JSON.parse(stock)).toStocks());
             }).catch((error : any) => {
                 console.log("problem?", error)
             });
         } else {
-            res.status(200).type('json').send({});
+            res.status(200).type('json').send([]);
         }
 
     };

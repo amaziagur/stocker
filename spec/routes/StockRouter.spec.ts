@@ -17,45 +17,31 @@ describe('featch stock details', function () {
 
     beforeEach(() => {
         nock(STOCK_API)
-            .get('/v1/public/yql?' + new QueryBuilder(["AMZN", "GOOGL"]).build())
+            .get('/v1/public/yql?' + new QueryBuilder(["NFLX"]).build())
             .reply(200, response);
 
-
-        // http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=amazon&region=1&lang=en
         nock(SEARCH_STOCK_API)
             .get('/autoc.finance.yahoo.com/autoc?' + new QueryBuilder(["amazon"]).buildSearchQuery())
             .reply(200, searchResultResponse);
     });
 
+    afterEach(() => {
+        nock.cleanAll()
+    });
+
+
     let response = {
         "query": {
-            "count": 2,
+            "count": 1,
             "results": {
-                "quote": [{
-                    "symbol": "AMZN",
+                "quote": {
+                    "symbol": "NFLX",
                     "Bid": "955.00",
-                    "Name": "Amazon.com, Inc."
-                },
-                    {
-                        "symbol": "GOOGL",
-                        "Bid": "956.60",
-                        "Name": "Alphabet Inc."
-
-                    }
-                ]
+                    "Name": "Netflix, Inc."
+                }
             }
         }
     };
-
-    it(("fetch stock"), () => {
-        return chai.request(app).get(STOCK_PATH)
-            .then(res => {
-                expect(res.status).to.equal(200);
-                expect(res).to.be.json;
-                expect(res.body).to.be.eql([{"symbol" : "AMZN", "bid" : 955.00,  "name": "Amazon.com, Inc."}, {"symbol" : "GOOGL", "bid" : 956.60, "name": "Alphabet Inc."}]);
-            });
-    });
-
 
     let searchResultResponse = {
         "ResultSet": {
@@ -88,4 +74,35 @@ describe('featch stock details', function () {
                 expect(res.body).to.be.eql([{"symbol" : "AMZN", "bid" : 0, "name" : "Amazon.com, Inc."}, {"symbol" : "AMZN.SN", "bid" : 0 , "name" : "Amazon.com, Inc."}]);
             });
     });
+
+
+    it(("unstock"), () => {
+        return chai.request(app).get(STOCK_PATH + "/add?name=NFLX")
+            .then(res => {
+                expect(res.status).to.equal(200);
+                expect(res).to.be.json;
+                return chai.request(app).get(STOCK_PATH).then((res) => {
+                    expect(res.body.length).to.be.eql(1);
+                    expect(res.body).to.be.eql([{"symbol":"NFLX","bid":955,"name":"Netflix, Inc."}]);
+                    return chai.request(app).get(STOCK_PATH + "/unstock?name=NFLX").then((res) => {
+                        expect(res.status).to.equal(200);
+                        expect(res).to.be.json;
+                        return chai.request(app).get(STOCK_PATH).then((res) => {
+                            expect(res.body.length).to.be.eql(0);
+                            expect(res.body).to.be.eql([]);
+                        }).catch((error) => {
+                            throw Error(error)
+                        });
+                    }).catch((error) => {
+                        throw Error(error)
+                    });
+                }).catch((error) => {
+                    throw Error(error)
+                });
+            }).catch((error) => {
+                throw Error(error)
+            });
+    });
+
+
 });
