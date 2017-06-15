@@ -1,9 +1,10 @@
 import * as express from "express";
 import * as logger from "morgan";
 import * as bodyParser from "body-parser";
-import DefaulltRouter from "./routes/DefaultRouter";
+import DefaulltRouter from "./routes/UserRouter";
 import path = require('path');
 import StockRouter from "./routes/StockRouter";
+import UserRouter from "./routes/UserRouter";
 
 class server {
 
@@ -35,7 +36,7 @@ class server {
       res.sendFile(path.resolve(__dirname, 'public/index.html'));
     });
 
-    this.express.use('/hello', DefaulltRouter);
+    this.express.use('/api/users', UserRouter);
     this.express.use('/api/stocks', StockRouter);
 
     this.express.use('/app', express.static(path.resolve(__dirname, 'public/app')));

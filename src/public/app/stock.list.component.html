@@ -8,7 +8,10 @@
             <p>{{stock.name}} <br>
                 <b>Stock symbol:</b> {{stock.symbol}} <b>Current bid:</b> {{stock.bid}}
             </p>
-            <a class="secondary-content"><i class="material-icons" (click)="unstock(stock)">unstock</i></a>
+            <a class="secondary-content"> <i class="material-icons grade" (click)="unstock(stock)">unstock</i></a>
+            <!--<a class="waves-effect waves-light btn green right">buy</a> <a class="waves-effect waves-light btn red right">sell</a>-->
+            <!--<br><a class="secondary-content"> <i class="waves-effect waves-light btn red">sell</i></a>-->
+            <a class="right material-icons waves-effect waves-light btn red">sell</a><a class="right material-icons waves-effect waves-light btn green">buy</a>
         </li>
     </ul>
     </div>

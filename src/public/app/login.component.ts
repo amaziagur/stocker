@@ -10,14 +10,17 @@ import {AuthenticationService, User} from "./auth.service";
 
 export class LoginComponent {
 
-    public user = new User('','');
+    public user = new User('', '','');
     public errorMsg = '';
+    loading = false;
 
     constructor(private authenticationService:AuthenticationService) {}
 
     login() {
+        this.loading = true;
         if(!this.authenticationService.login(this.user)){
             this.errorMsg = 'Failed to login';
+            this.loading = false;
         }
     }
 }

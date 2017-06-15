@@ -3,14 +3,15 @@ import {Router} from '@angular/router';
 
 export class User {
     constructor(
+        public id: string,
         public email: string,
         public password: string) { }
 }
 
 var users = [
-    new User('admin@admin.com','adm9'),
-    new User('user1@gmail.com','a23'),
-    new User('a','a')
+    new User('11', 'admin@admin.com','adm9'),
+    new User('11', 'user1@gmail.com','a23'),
+    new User('11', 'a','a')
 ];
 
 @Injectable()
@@ -33,6 +34,13 @@ export class AuthenticationService {
         }
         return false;
 
+    }
+
+    push(user : any) {
+        console.log("going to push user", user);
+        localStorage.setItem("user", JSON.stringify(user));
+        users.push(user);
+        console.log("user added", users);
     }
 
     checkCredentials(){
