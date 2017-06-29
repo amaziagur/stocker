@@ -9,10 +9,10 @@ export class StockAdapter {
         let stocks : any[] = [];
 
         if(this.data.query.count <= 1){
-            stocks.push(new Stock(this.data.query.results.quote.symbol, +this.data.query.results.quote.Bid, this.data.query.results.quote.Name));
+            stocks.push(new Stock(this.data.query.results.quote.symbol, +this.data.query.results.quote.Bid, this.data.query.results.quote.Name, this.data.query.results.quote.Change));
         } else {
             for(var i = 0; i  < this.data.query.count; i++){
-                stocks.push(new Stock(this.data.query.results.quote[i].symbol, +this.data.query.results.quote[i].Bid, this.data.query.results.quote[i].Name));
+                stocks.push(new Stock(this.data.query.results.quote[i].symbol, +this.data.query.results.quote[i].Bid, this.data.query.results.quote[i].Name, this.data.query.results.quote[i].Change));
             }
         }
 
@@ -22,7 +22,7 @@ export class StockAdapter {
     toSearchResults() : any {
         let stocks : any[] = [];
         for(var i = 0; i  < this.data.ResultSet.Result.length; i++){
-            stocks.push(new Stock(this.data.ResultSet.Result[i].symbol, 0, this.data.ResultSet.Result[i].name));
+            stocks.push(new Stock(this.data.ResultSet.Result[i].symbol, 0, this.data.ResultSet.Result[i].name, this.data.ResultSet.Result[i].Change));
         }
         return stocks
     }

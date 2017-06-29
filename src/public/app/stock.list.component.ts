@@ -25,6 +25,21 @@ export class StocksListComponent implements OnInit{
         return "https://logo.clearbit.com/amazon.com?size=80";
     }
 
+    trend(Change : number){
+        console.log("changeeee", +Change);
+        if (Change > 0){
+            return "trending_up"
+        }
+
+        else if (Change < 0 ){
+            return "trending_down"
+        }
+
+        else if (Change == 0){
+            return "trending_flat"
+        }
+    }
+
     unstock(stock: any) : void {
         console.log("goint to remove", stock);
         this.stockFetcherService.unstock(stock.symbol).toPromise().then(() => {

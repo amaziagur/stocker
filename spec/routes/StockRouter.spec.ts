@@ -37,7 +37,8 @@ describe('featch stock details', function () {
                 "quote": {
                     "symbol": "NFLX",
                     "Bid": "955.00",
-                    "Name": "Netflix, Inc."
+                    "Name": "Netflix, Inc.",
+                    "Change": "-0.17"
                 }
             }
         }
@@ -83,7 +84,7 @@ describe('featch stock details', function () {
                 expect(res).to.be.json;
                 return chai.request(app).get(STOCK_PATH).then((res) => {
                     expect(res.body.length).to.be.eql(1);
-                    expect(res.body).to.be.eql([{"symbol":"NFLX","bid":955,"name":"Netflix, Inc."}]);
+                    expect(res.body).to.be.eql([{"symbol":"NFLX","bid":955,"name":"Netflix, Inc.", "Change": "-0.17"}]);
                     return chai.request(app).get(STOCK_PATH + "/unstock?name=NFLX").then((res) => {
                         expect(res.status).to.equal(200);
                         expect(res).to.be.json;
