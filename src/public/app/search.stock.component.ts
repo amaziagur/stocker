@@ -38,8 +38,10 @@ export class SearchStockComponent {
     select(item : any){
         this.query = item.name;
         console.log("&&&&", item.symbol);
-        this.stockFetcherService.push(item.symbol).toPromise();
-        this.filteredList = [];
+        this.stockFetcherService.push(item.symbol).toPromise().then(() =>{
+            this.filteredList = [];
+            this.query = null;
+        });
     }
 
 
