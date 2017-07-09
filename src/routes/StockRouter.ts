@@ -2,10 +2,10 @@ import {Router, Request, Response, NextFunction} from "express";
 import {Stock} from "../public/app/stock";
 import {StockFetcherClient} from "../stock.fetcher.client";
 import {StockAdapter} from "../stock.adapter";
+import {StockRepository} from "../stocker.repository";
 
 export class StockRouter {
     router: Router;
-    // stocks : string [] = ["AMZN", "GOOGL"];
     stocks : string [] = [];
     constructor() {
         this.init();
@@ -20,11 +20,13 @@ export class StockRouter {
     }
 
     public get = (req: Request, res: Response, next: NextFunction) => {
+        this.stocks = new StockRepository(req.query.username).list().split(',');
+        this.stocks = this.stocks.filter(function(i){ return i != ""; });
         console.log("im in get list", this.stocks);
         if(this.stocks.length > 0){
             new StockFetcherClient().getStock(this.stocks)
                 .then((stock : string) => {
-                    console.log("%%%%%%", stock)
+                    console.log("%%%%%%", stock);
                 res.status(200).type('json').send(new StockAdapter(JSON.parse(stock)).toStocks());
             }).catch((error : any) => {
                 console.log("problem?", error)
@@ -45,6 +47,7 @@ export class StockRouter {
     public add = (req: Request, res: Response, next: NextFunction) => {
         console.log("helloooo", req.query.name);
         this.stocks.push(req.query.name);
+        new StockRepository(req.query.username).append(req.query.name);
         console.log("all my stocks!", this.stocks);
         res.status(200).send({});
     };
@@ -53,6 +56,7 @@ export class StockRouter {
         console.log("going to unstock the following stock", req.query.name);
         console.log("here is my stocks before remove", this.stocks);
         this.stocks = this.stocks.filter(item => item !== req.query.name);
+        new StockRepository(req.query.username).drop(req.query.name);
         console.log("my stock size", this.stocks.length);
         console.log("here is my stocks after remove", this.stocks);
         res.status(200).send({});

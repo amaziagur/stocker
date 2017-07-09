@@ -16,7 +16,7 @@ export class StocksListComponent implements OnInit{
         this.stockFetcherService.poolStocks((stocks: any)=> {
             console.log("here is my stocks", stocks);
             this.stocks = stocks;
-        });
+        }, JSON.parse(localStorage.getItem("user")).username);
 
     }
 
@@ -42,7 +42,7 @@ export class StocksListComponent implements OnInit{
 
     unstock(stock: any) : void {
         console.log("goint to remove", stock);
-        this.stockFetcherService.unstock(stock.symbol).toPromise().then(() => {
+        this.stockFetcherService.unstock(stock.symbol, JSON.parse(localStorage.getItem("user")).username).toPromise().then(() => {
             var index = this.stocks.indexOf(stock, 0);
             if (index > -1) {
                 this.stocks.splice(index, 1);

@@ -37,8 +37,8 @@ export class SearchStockComponent {
 
     select(item : any){
         this.query = item.name;
-        console.log("&&&&", item.symbol);
-        this.stockFetcherService.push(item.symbol).toPromise().then(() =>{
+        console.log("&$&$&$&&", localStorage.getItem("user"))
+        this.stockFetcherService.push(item.symbol, JSON.parse(localStorage.getItem("user")).username).toPromise().then(() =>{
             this.filteredList = [];
             this.query = null;
         });

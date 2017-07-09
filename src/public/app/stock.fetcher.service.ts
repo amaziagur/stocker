@@ -10,14 +10,14 @@ export class StockFetcherService {
 
     private stockApi = "/api/stocks";
 
-    unstock(stockSymble: string) : Observable<string> {
-        return this.http.get(this.stockApi + "/unstock/?name=" + stockSymble)
+    unstock(stockSymble: string, username: string) : Observable<string> {
+        return this.http.get(this.stockApi + "/unstock/?name=" + stockSymble + "&username=" + username)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    push(stockSymble: string) : Observable<string> {
-        return this.http.get(this.stockApi + "/add/?name=" + stockSymble)
+    push(stockSymble: string, username: string) : Observable<string> {
+        return this.http.get(this.stockApi + "/add/?name=" + stockSymble + "&username=" + username)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -28,8 +28,8 @@ export class StockFetcherService {
             .catch(this.handleError);
     }
 
-    poolStocks(callback: any): void {
-        this.poolingService.execute(() => this.http.get(this.stockApi).map((data) => {
+    poolStocks(callback: any, username : string): void {
+        this.poolingService.execute(() => this.http.get(this.stockApi + "?username=" + username).map((data) => {
             console.log('data:', data);
             return data.json()
         })).subscribe(callback);
