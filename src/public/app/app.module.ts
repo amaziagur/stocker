@@ -17,6 +17,7 @@ import {HomeComponent} from "./home.component";
 import {RegisterComponent} from "./register.component";
 import {UserService} from "./user.service";
 import {AlertService} from "./alert.service";
+import {CompanySearcherService} from "./company.searcher.service";
 
 
 const appRoutes: Routes = [
@@ -30,7 +31,7 @@ const appRoutes: Routes = [
   imports:      [ BrowserModule, HttpModule, FormsModule, RouterModule.forRoot(appRoutes)],
   declarations: [
       AppComponent, HomeComponent, StocksListComponent, SearchStockComponent, LoginComponent, PrivateComponent, RegisterComponent
-  ], providers : [PoolingService, StockFetcherService, AuthenticationService, AuthGuard, UserService, AlertService],
+  ], providers : [CompanySearcherService, PoolingService, StockFetcherService, AuthenticationService, AuthGuard, UserService, AlertService],
   bootstrap:    [ AppComponent],
 })
 export class AppModule { }

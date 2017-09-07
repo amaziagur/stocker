@@ -2,4 +2,6 @@ stockApiDomain: query.yahooapis.com
 stockApiPort: 80
 searchStockApiDomain: d.yimg.com
 searchStockApiPort: 80
+companySearchDomain: company.clearbit.com/v1/companies/search?query=name
+companySearchUsername: sk_3435b112ec88d4eb72e23a99d7b25449
 #// http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=amazon&region=1&lang=en

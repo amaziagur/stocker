@@ -1,10 +1,10 @@
 import * as express from "express";
 import * as logger from "morgan";
 import * as bodyParser from "body-parser";
-import DefaulltRouter from "./routes/UserRouter";
 import path = require('path');
 import StockRouter from "./routes/StockRouter";
 import UserRouter from "./routes/UserRouter";
+import MgmtRouter from "./routes/MgmtRouter";
 
 class server {
 
@@ -38,6 +38,7 @@ class server {
 
     this.express.use('/api/users', UserRouter);
     this.express.use('/api/stocks', StockRouter);
+    this.express.use('/api/mgmt', MgmtRouter);
 
     this.express.use('/app', express.static(path.resolve(__dirname, 'public/app')));
     this.express.use('/libs', express.static(path.resolve(__dirname, 'public/libs')));

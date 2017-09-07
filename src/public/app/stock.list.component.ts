@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {Stock} from "./stock";
 import {PoolingService} from "./pooling.service";
 import {StockFetcherService} from "./stock.fetcher.service";
+import {CompanySearcherService} from "./company.searcher.service";
 
 @Component({
     moduleId: module.id,
@@ -11,7 +12,7 @@ import {StockFetcherService} from "./stock.fetcher.service";
 export class StocksListComponent implements OnInit{
     stocks : any [];
 
-    constructor(private stockFetcherService: StockFetcherService) {}
+    constructor(private stockFetcherService: StockFetcherService, private companySearcherService : CompanySearcherService) {}
     ngOnInit() : void {
         this.stockFetcherService.poolStocks((stocks: any)=> {
             console.log("here is my stocks", stocks);
@@ -20,8 +21,12 @@ export class StocksListComponent implements OnInit{
 
     }
 
-    getImage(stockName: any) : string {
+    getImage(name: any) : string {
         // return "https://logo.clearbit.com/" + stockName + ".com?size=80";
+        this.companySearcherService.search(name).then((data : any) => {
+            console.log(JSON.stringify(data))
+        })
+
         return "https://logo.clearbit.com/amazon.com?size=80";
     }
 

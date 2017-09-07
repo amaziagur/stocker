@@ -2,3 +2,5 @@ stockApiDomain: localhost
 stockApiPort: 9000
 searchStockApiDomain: localhost
 searchStockApiPort: 8888
+companySearchDomain: localhost
+companySearchUsername: sk_3435b112ec88d4eb72e23a99d7b25449
